@@ -1,199 +1,144 @@
 # KIM JISEOP | Portfolio
 
-실서비스 앱이 호출하는 통합 플랫폼 서버와  
-사내 공통 External API Gateway의 설계, 개발, 운영, 유지보수를 중심으로 경험을 쌓아온  
-Java Backend Developer의 대표 프로젝트 포트폴리오입니다.
+실서비스 API 운영 경험을 바탕으로,  
+외부 연동 · 상태 관리 · 정합성 · 배치/스케줄링 · 운영 안정성이 중요한  
+백엔드 문제를 운영 관점에서 설계하고 개선해온 Java Backend Developer의 대표 프로젝트 포트폴리오입니다.
 
-이 문서는 기능 목록을 나열하기보다,  
-운영 안정성, 외부 연동, 상태 관리, 정합성, 복구 가능성이 중요한  
-운영형 백엔드 문제를 어떤 구조로 풀어냈는지 보여주는 것을 목표로 합니다.
+이 문서는 기능 목록보다,  
+운영 민감도가 높은 Backend 문제를 어떤 구조로 풀어냈는지 보여주는 데 초점을 둡니다.
 
-</br>
+<br/>
 
 ## About This Portfolio
 
 저는 단순히 동작하는 기능을 구현하는 것보다,  
 운영 환경에서 실제로 문제가 되는 지점을 구조적으로 풀어내는 방식에 더 관심이 있습니다.
 
-실무에서는 회사 앱서비스가 호출하는 API들을 통합한 **플랫폼 서버**와,  
-사내 공통 기능으로 활용되는 **External API 연동 Gateway**를 중심으로 작업해왔습니다.
-
-또한 백엔드 파트 전임 1인으로서  
-작업 요청이 들어오면 단순 구현만 수행하는 것이 아니라,  
-**작업 설계, 프로세스 설계, 파라미터 명세 정리, 개발, 테스트, 배포**까지 직접 수행해왔습니다.
-
-외부 연동 업무에서는 업체와의 미팅, 연동 방식 협의, 테스트, 상용 환경 적용까지 단독으로 진행했으며,  
-일부 레거시 PHP / Java 시스템은 **Spring Boot / Gradle 형태로 리빌딩**하며 구조 개선을 진행했습니다.
+실무에서는 통합 플랫폼 서버와 사내 공통 External API Gateway를 중심으로 작업해왔고,  
+외부 연동, 상태 관리, 정합성, 복구 가능성이 중요한 문제를 주로 다뤄왔습니다.
 
 이 경험을 바탕으로 포트폴리오 프로젝트 역시  
-예제형 CRUD보다 **운영 안정성, 외부 연동, 상태 관리, 정합성, 복구 가능성**이 드러나도록 재구성했습니다.
+예제형 CRUD보다 **운영형 구조 설계**가 드러나도록 재구성했습니다.
 
-</br>
+<br/>
 
 ## Positioning
 
 - **Role**: Java Backend Developer
-- **Focus**: Operational Stability / State Management / External Integration / Consistency
+- **Focus**: Operational Stability / State Management / External Integration / Batch-Scheduler / Consistency
 - **Main Stack**: Java, Spring Boot, MyBatis, Oracle
 - **Working Knowledge**: Redis, PostgreSQL, Docker, JPA, QueryDSL
 
-</br>
+<br/>
 
 ## What I Solve
 
 주로 아래와 같은 문제를 중요하게 봅니다.
 
 - 외부 시스템 / Provider 연동 시 비대해지는 분기와 예외 흐름
+- 상태 전이와 최종 정합성이 중요한 운영형 로직 설계
 - 캐시, 메시징, DB 간 역할 분리와 복구 가능성
-- 배치 / 스케줄러 / 콜백 프로세스의 실행 제어, 중복 실행 방지, 재시도
-- 설치 전/후처럼 흐름이 분리되는 상황에서의 서버 기준 검증과 정합성
-- 레거시 구조를 이해하고 운영 리스크를 낮추는 방향의 리빌딩과 점진적 리팩토링
+- 배치 / 스케줄러 / 콜백 프로세스의 실행 제어와 재시도
+- 서버 기준 검증과 추적이 필요한 흐름 설계
+- 레거시 구조 분석과 점진적 리빌딩 / 리팩토링
 
-</br>
+<br/>
 
 ## Featured Projects
 
-### 1. [realtime-caching-gateway](https://github.com/Gseobi/realtime-caching-gateway)
+### 1. [provider-integration-gateway](https://github.com/Gseobi/provider-integration-gateway)
 
-#### One-line Summary
-Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallback / synchronization 구조로 성능과 복구 가능성을 함께 고려한 프로젝트
-
-#### Problem
-실시간 메시지 처리와 빠른 응답을 위해 캐시를 도입하더라도,  
-캐시 장애나 데이터 유실 상황에서 복구 전략과 최종 정합성까지 고려하지 않으면 운영 리스크가 커질 수 있습니다.
-
-#### What I Focused On
-- Redis를 단순 캐시가 아니라 처리 계층으로 확장
-- PostgreSQL fallback / synchronization 구조 설계
-- 캐시 적중률뿐 아니라 복구 가능성과 정합성 고려
-- 처리 성능과 데이터 안정성 사이의 균형 설계
-
-#### Why It Matters
-이 프로젝트는 “캐시를 써서 빠르게 만들기”보다  
-**빠르게 처리하면서도 장애 시 복구 가능한 구조를 어떻게 만들 것인가**를 보여줍니다.
-
-#### Architecture
-- Redis를 단순 조회 캐시가 아니라 실시간 처리와 응답 성능을 담당하는 계층으로 두고, PostgreSQL을 최종 데이터 기준 저장소로 분리했습니다.
-- 캐시 계층에서 빠른 처리 성능을 확보하되, 장애나 유실 상황에서는 PostgreSQL fallback 흐름을 통해 복구 가능한 구조를 고려했습니다.
-- 캐시와 DB의 역할을 분리하고 synchronization 흐름을 설계해, 성능과 최종 정합성을 함께 관리할 수 있도록 구성했습니다.
-
-#### Trade-offs
-- 단순 캐시 조회 구조보다 fallback / synchronization 흐름이 추가되어 설계와 구현 복잡도는 높아집니다.
-- 캐시 적중률만 극대화하는 방식보다, 장애 시 복구 가능성과 데이터 신뢰성을 함께 확보하는 방향을 우선했습니다.
-- 처리 속도만 보면 더 단순한 구조도 가능하지만, 운영 환경에서는 유실 대응과 최종 정합성을 고려한 구조가 더 중요하다고 판단했습니다.
-
-</br>
-
-### 2. [provider-integration-gateway](https://github.com/Gseobi/provider-integration-gateway)
-
-#### One-line Summary
+**Summary**  
 다수 Provider / PG 연동 환경에서 Provider 선택, 요청 구성, 응답 표준화를 Backend 게이트웨이로 모아 설계한 프로젝트
 
-#### Problem
-외부 시스템이 늘어날수록 호출부에 Provider별 분기와 예외 처리가 퍼지기 쉽고,  
-응답 구조도 제각각이라 서비스 로직이 빠르게 비대해질 수 있습니다.
-
-#### What I Focused On
+**Focus**
 - Provider별 구현 책임 분리
 - 공통 응답 구조 표준화
-- 확장 가능한 라우팅 구조
-- 호출부 복잡도 감소와 유지보수성 확보
+- 확장 가능한 라우팅 구조 설계
 
-#### Why It Matters
-이 프로젝트는 단순 연동 기능보다  
-**외부 연동 구조를 어떻게 제어 가능한 형태로 유지할 것인가**에 초점을 두고 있습니다.
+**Why It Matters**  
+단순 연동 기능이 아니라,  
+**외부 연동 구조를 제어 가능한 형태로 유지하는 방식**을 보여주기 위한 프로젝트입니다.
 
-#### Architecture
-- Provider 선택, 요청 구성, 응답 변환 책임을 분리해 호출부가 개별 Provider 구현에 직접 의존하지 않도록 설계했습니다.
-- Provider별 구현은 분리된 구조로 두고, 상위 계층에서는 공통 진입점과 공통 응답 포맷을 통해 제어 가능하도록 구성했습니다.
-- 외부 연동 시 발생할 수 있는 분기 처리와 예외 흐름이 서비스 전반으로 퍼지지 않도록 게이트웨이 계층에 구조화했습니다.
+<br/>
 
-#### Trade-offs
-- Provider별 공통화와 추상화 계층을 두면서 초기 설계 비용과 클래스 구조 복잡도는 증가합니다.
-- 단순 직접 연동보다 구현량은 많아지지만, Provider 추가/변경 시 영향 범위를 줄이고 유지보수성을 높일 수 있습니다.
-- 빠르게 한 곳만 붙이는 방식보다, 여러 외부 연동 환경에서도 제어 가능한 구조를 유지하는 방향을 더 중요하게 봤습니다.
+### 2. [ops-scheduler-batch-jobs](https://github.com/Gseobi/ops-scheduler-batch-jobs)
 
-</br>
+**Summary**  
+운영형 배치에서 필요한 중복 실행 제어, 재시도 흐름, 운영 가시성을 구조화한 Scheduler / Batch 프로젝트
 
-### 3. [ops-scheduler-batch-jobs](https://github.com/Gseobi/ops-scheduler-batch-jobs)
-
-#### One-line Summary
-운영형 배치에서 필요한 중복 실행 제어, 재시도 흐름, 운영 가시성을 구조화한 스케줄러/배치 프로젝트
-
-#### Problem
-배치나 스케줄러는 단순히 정해진 시간에 실행되는 기능처럼 보이지만,  
-운영 환경에서는 중복 실행, 실패 후 재처리, 실행 이력 추적, 외부 연동 실패 대응이 더 중요해집니다.
-
-#### What I Focused On
+**Focus**
 - 시간 분산 실행과 실행 제어 구조 분리
 - 실패 시 재시도 흐름 설계
 - 운영 로그 / 상태 확인 포인트 정리
-- 실행 안정성과 운영 제어 가능성 강화
 
-#### Why It Matters
-이 프로젝트는 단순 스케줄 등록이 아니라  
+**Why It Matters**  
+단순 스케줄 등록이 아니라,  
 **운영 가능한 배치 구조를 어떻게 만들 것인가**에 초점을 둔 프로젝트입니다.
 
-#### Architecture
-- 스케줄 등록, 실행 제어, 실제 작업 수행 책임을 분리해 배치 흐름을 추적 가능하고 운영 가능한 구조로 구성했습니다.
-- 중복 실행 방지, 실패 후 재시도, 실행 이력 확인이 가능하도록 실행 제어 포인트와 상태 확인 포인트를 분리했습니다.
-- 외부 연동이나 후속 처리 실패 상황에서도 단순 종료가 아니라 재처리와 운영 대응이 가능하도록 흐름을 고려했습니다.
+<br/>
 
-#### Trade-offs
-- 단순 스케줄 등록 방식보다 실행 제어와 상태 관리 구조가 추가되어 설계 복잡도는 높아집니다.
-- 구현 난이도는 올라가지만, 운영 환경에서 더 중요한 중복 실행 방지, 장애 대응, 재처리 가능성을 확보할 수 있습니다.
-- 짧은 구현 속도보다 실제 운영에서 제어 가능하고 복구 가능한 배치 구조를 만드는 방향을 우선했습니다.
+### 3. [java-socket-daemon-springboot](https://github.com/Gseobi/java-socket-daemon-springboot)
 
-</br>
+**Summary**  
+DB 기반 작업 Polling, 암·복호화, Socket 송수신, 결과 반영 흐름을 분리해 장기 실행 Provider 연동 Daemon 구조를 설계한 프로젝트
 
-### 4. [deferred-deeplink-backend](https://github.com/Gseobi/deferred-deeplink-backend)
+**Focus**
+- Polling 기반 작업 처리와 결과 반영 구조
+- Provider별 설정 분리
+- timeout / retry / 예외 흐름 설계
 
-#### One-line Summary
+**Why It Matters**  
+단순 Socket 연동이 아니라,  
+**운영 가능한 장기 실행 Daemon 구조**를 보여주기 위한 프로젝트입니다.
+
+<br/>
+
+### 4. [realtime-caching-gateway](https://github.com/Gseobi/realtime-caching-gateway)
+
+**Summary**  
+Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallback / synchronization 구조로 성능과 복구 가능성을 함께 고려한 프로젝트
+
+**Focus**
+- Redis를 처리 계층으로 확장
+- PostgreSQL fallback / synchronization 구조 설계
+- 캐시 적중률뿐 아니라 복구 가능성과 정합성 고려
+
+**Why It Matters**  
+캐시를 써서 빠르게 만드는 것보다,  
+**빠르게 처리하면서도 장애 시 복구 가능한 구조**를 보여주는 프로젝트입니다.
+
+<br/>
+
+### 5. [deferred-deeplink-backend](https://github.com/Gseobi/deferred-deeplink-backend)
+
+**Summary**  
 광고 클릭 이후 앱 설치 전/후가 분리되는 흐름에서 서버 기준 추적, 검증, 상태 연결 구조를 설계한 프로젝트
 
-#### Problem
-광고 유입, 앱 설치, 최초 실행이 시간적으로 분리되는 구조에서는  
-단순 딥링크 생성만으로는 유입 식별, 검증, 귀속 처리의 정합성을 안정적으로 보장하기 어렵습니다.
-
-#### What I Focused On
+**Focus**
 - 설치 전/후 흐름을 서버 기준으로 연결
 - 위변조 방지와 유입 식별 검증
-- Click ID 및 검증 정보 관리
 - 추적/귀속 흐름의 정합성 확보
 
-#### Why It Matters
-이 프로젝트는 단순 링크 생성 기능이 아니라  
-**시간적으로 분리된 사용자 흐름을 서버 기준으로 어떻게 검증하고 연결할 것인가**를 보여줍니다.
+**Why It Matters**  
+단순 링크 생성이 아니라,  
+**시간적으로 분리된 사용자 흐름을 서버 기준으로 검증하고 연결하는 방식**을 보여주는 프로젝트입니다.
 
-#### Architecture
-- 광고 클릭 시점과 앱 설치 이후 최초 실행 시점을 서버 기준으로 연결할 수 있도록 식별 정보와 검증 흐름을 분리해 설계했습니다.
-- 단순 딥링크 발급이 아니라 Click ID, 검증 정보, 귀속 판단 흐름을 서버에서 관리하도록 구성해 위변조 가능성을 줄였습니다.
-- 설치 전/후가 시간적으로 분리된 상황에서도 유입 식별과 귀속 처리가 정합성 있게 이어지도록 상태 연결 구조를 고려했습니다.
-
-#### Trade-offs
-- 단순 링크 생성 방식보다 식별 정보 관리와 검증 로직이 추가되어 구조 복잡도는 높아집니다.
-- 구현은 더 복잡해지지만, 광고 유입 추적과 설치 후 귀속 처리의 신뢰성을 높일 수 있습니다.
-- 편의성만 보면 더 단순한 구조도 가능하지만, 서버 기준 검증과 위변조 방지까지 고려한 방향이 운영적으로 더 적합하다고 판단했습니다.
-
-</br>
+<br/>
 
 ## Practical Experience Summary
 
 실무에서는 아래와 같은 흐름을 중심으로 작업해왔습니다.
 
-- 회사 앱서비스가 호출하는 API들을 통합한 **플랫폼 서버** 설계 / 개발 / 운영 / 유지보수
-- 사내 공통 기능으로 활용되는 **External API 연동 Gateway** 설계 / 개발 / 운영 / 유지보수
-- 작업 요청 수신 이후 **작업 설계 → 프로세스 설계 → 파라미터 명세 정리 → 개발 → 테스트 → 배포**
-- 충전, 결제, 가입자 조회, Mail, 국제 SMS, Push 영역의 API 작업 수행
+- 통합 플랫폼 서버 및 External API Gateway 설계 / 개발 / 운영 / 유지보수
+- 작업 설계 → 프로세스 설계 → 파라미터 명세 → 개발 → 테스트 → 배포
+- 충전, 결제, 가입자 조회, Mail, 국제 SMS, Push 영역의 API 작업
 - Daemon, Scheduler, Callback API, Callback Daemon 설계 및 유지보수
-- 외부 연동 업체와의 미팅, 연동 협의, 테스트, 상용 환경 적용 단독 수행
+- 외부 연동 업체와의 협의, 테스트, 상용 적용 직접 수행
 - 레거시 PHP / Java 구조 분석 및 Spring Boot / Gradle 기반 리빌딩
-- 운영 중 발생하는 이슈에 대한 원인 분석, 예외 흐름 보완, 재시도 / 복구 구조 개선
+- 운영 이슈에 대한 원인 분석, 예외 흐름 보완, 재시도 / 복구 구조 개선
 
-이 경험을 바탕으로,  
-포트폴리오 프로젝트 또한 단순 예제 구현보다 **운영형 구조 설계**를 보여주는 방향으로 재구성했습니다.
-
-</br>
+<br/>
 
 ## Engineering Background
 
@@ -203,7 +148,7 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 설비 프로그램 제작, 현장 셋업, 개조, 유지보수, 이슈 대응까지 전 과정을 수행했으며,  
 이 경험은 현재 백엔드 개발에서도 **운영 안정성, 현장 문제 해결, 시스템 흐름 중심 사고**로 이어지고 있습니다.
 
-</br>
+<br/>
 
 ## What These Projects Show
 
@@ -212,11 +157,11 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 - 운영 민감도가 높은 Backend 문제를 구조적으로 바라보는 관점
 - 상태 관리와 최종 정합성을 고려한 설계
 - 실패 시 복구 가능성과 제어 가능성을 우선하는 방식
-- 외부 시스템 연동에서 분기, 응답, 예외를 다루는 구조화 능력
+- 외부 연동에서 분기, 응답, 예외를 다루는 구조화 능력
 - 배치 / 스케줄러 / 캐시 / 검증 흐름을 운영 관점에서 설계하는 능력
 - 레거시를 분석하고 현대적인 구조로 재구성하는 문제 해결 방식
 
-</br>
+<br/>
 
 ## Links
 
@@ -224,12 +169,12 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 - **LinkedIn**: [linkedin.com/in/jiseop-kim-3983813b9](https://www.linkedin.com/in/jiseop-kim-3983813b9/)
 - **Email**: [wsx2386@naver.com](mailto:wsx2386@naver.com)
 
-</br>
+<br/>
 
 ## Notes
 
 이 문서는 채용공고별 제출용 포트폴리오가 아니라,  
 GitHub 메인 프로필에서 공통적으로 연결할 수 있는 **공개용 Portfolio** 기준으로 작성했습니다.
 
-지원 회사별로 강조 포인트를 조정한 제출용 문서는 별도로 관리하고,  
+지원 회사별 제출 문서는 별도로 관리하고,  
 이 문서는 공개용 대표 버전으로 유지하는 것을 기준으로 합니다.
