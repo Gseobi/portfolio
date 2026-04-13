@@ -1,7 +1,7 @@
 # KIM JISEOP | Portfolio
 
 실서비스 API 운영 경험을 바탕으로,  
-외부 연동 · 상태 관리 · 정합성 · 배치/스케줄링 · 운영 안정성이 중요한  
+외부 연동 · 상태 관리 · 정합성 · 배치/스케줄링처럼 운영 민감도가 높은  
 백엔드 문제를 운영 관점에서 설계하고 개선해온 Java Backend Developer의 대표 프로젝트 포트폴리오입니다.
 
 이 문서는 기능 목록보다,  
@@ -18,7 +18,7 @@
 외부 연동, 상태 관리, 정합성, 복구 가능성이 중요한 문제를 주로 다뤄왔습니다.
 
 이 경험을 바탕으로 포트폴리오 프로젝트 역시  
-예제형 CRUD보다 **운영형 구조 설계**가 드러나도록 재구성했습니다.
+예제형 CRUD보다 **운영형 구조 설계**가 드러나도록 구성했습니다.
 
 <br/>
 
@@ -46,7 +46,23 @@
 
 ## Featured Projects
 
-### 1. [provider-integration-gateway](https://github.com/Gseobi/provider-integration-gateway)
+### 1. [commerce-orchestration-backend](https://github.com/Gseobi/commerce-orchestration-backend)
+
+**Summary**  
+주문 이후 payment · settlement · notification 흐름을 orchestration, outbox, compensation, admin recovery 관점으로 설계한 Backend 프로젝트
+
+**Focus**
+- `CommerceOrchestrationService` 중심의 흐름 제어와 domain 책임 분리
+- settlement failure와 notification failure의 보상 / 복구 정책 분리
+- outbox retry / dead-letter / admin reprocessing 구조 설계
+
+**Why It Matters**  
+단순 주문 API 구현이 아니라,  
+**주문 이후 후속 처리 흐름을 운영 가능한 구조로 제어하고 실패 시에도 복구 가능한 Backend 구조를 어떻게 설계할 것인가**를 보여주기 위한 프로젝트입니다.
+
+<br/>
+
+### 2. [provider-integration-gateway](https://github.com/Gseobi/provider-integration-gateway)
 
 **Summary**  
 다수 Provider / PG 연동 환경에서 Provider 선택, 요청 구성, 응답 표준화를 Backend 게이트웨이로 모아 설계한 프로젝트
@@ -62,7 +78,7 @@
 
 <br/>
 
-### 2. [ops-scheduler-batch-jobs](https://github.com/Gseobi/ops-scheduler-batch-jobs)
+### 3. [ops-scheduler-batch-jobs](https://github.com/Gseobi/ops-scheduler-batch-jobs)
 
 **Summary**  
 운영형 배치에서 필요한 중복 실행 제어, 재시도 흐름, 운영 가시성을 구조화한 Scheduler / Batch 프로젝트
@@ -78,7 +94,7 @@
 
 <br/>
 
-### 3. [java-socket-daemon-springboot](https://github.com/Gseobi/java-socket-daemon-springboot)
+### 4. [java-socket-daemon-springboot](https://github.com/Gseobi/java-socket-daemon-springboot)
 
 **Summary**  
 DB 기반 작업 Polling, 암·복호화, Socket 송수신, 결과 반영 흐름을 분리해 장기 실행 Provider 연동 Daemon 구조를 설계한 프로젝트
@@ -94,7 +110,7 @@ DB 기반 작업 Polling, 암·복호화, Socket 송수신, 결과 반영 흐름
 
 <br/>
 
-### 4. [realtime-caching-gateway](https://github.com/Gseobi/realtime-caching-gateway)
+### 5. [realtime-caching-gateway](https://github.com/Gseobi/realtime-caching-gateway)
 
 **Summary**  
 Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallback / synchronization 구조로 성능과 복구 가능성을 함께 고려한 프로젝트
@@ -110,7 +126,7 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 
 <br/>
 
-### 5. [deferred-deeplink-backend](https://github.com/Gseobi/deferred-deeplink-backend)
+### 6. [deferred-deeplink-backend](https://github.com/Gseobi/deferred-deeplink-backend)
 
 **Summary**  
 광고 클릭 이후 앱 설치 전/후가 분리되는 흐름에서 서버 기준 추적, 검증, 상태 연결 구조를 설계한 프로젝트
@@ -118,11 +134,11 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 **Focus**
 - 설치 전/후 흐름을 서버 기준으로 연결
 - 위변조 방지와 유입 식별 검증
-- 추적/귀속 흐름의 정합성 확보
+- 추적 / 귀속 흐름의 정합성 확보
 
 **Why It Matters**  
 단순 링크 생성이 아니라,  
-**시간적으로 분리된 사용자 흐름을 서버 기준으로 검증하고 연결하는 방식**을 보여주는 프로젝트입니다.
+**시간적으로 분리된 사용자 흐름을 서버 기준으로 검증하고 연결하는 방식**을 보여주기 위한 프로젝트입니다.
 
 <br/>
 
@@ -136,7 +152,7 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 - Daemon, Scheduler, Callback API, Callback Daemon 설계 및 유지보수
 - 외부 연동 업체와의 협의, 테스트, 상용 적용 직접 수행
 - 레거시 PHP / Java 구조 분석 및 Spring Boot / Gradle 기반 리빌딩
-- 운영 이슈에 대한 원인 분석, 예외 흐름 보완, 재시도 / 복구 구조 개선
+- 운영 이슈 원인 분석, 예외 흐름 보완, 재시도 / 복구 구조 개선
 
 <br/>
 
@@ -166,6 +182,7 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 ## Links
 
 - **GitHub**: [github.com/Gseobi](https://github.com/Gseobi)
+- **Velog**: [velog.io/@wsx2386/posts](https://velog.io/@wsx2386/posts)
 - **LinkedIn**: [linkedin.com/in/jiseop-kim-3983813b9](https://www.linkedin.com/in/jiseop-kim-3983813b9/)
 - **Email**: [wsx2386@naver.com](mailto:wsx2386@naver.com)
 
@@ -177,4 +194,4 @@ Redis를 실시간 처리 및 캐시 계층으로 활용하고 PostgreSQL fallba
 GitHub 메인 프로필에서 공통적으로 연결할 수 있는 **공개용 Portfolio** 기준으로 작성했습니다.
 
 지원 회사별 제출 문서는 별도로 관리하고,  
-이 문서는 공개용 대표 버전으로 유지하는 것을 기준으로 합니다.
+이 문서는 공개용 대표 버전으로 유지합니다.
